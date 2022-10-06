@@ -17,7 +17,7 @@ class RegistrationDB{
     }
     static getRegistration(){
 
-        return new Promise(function(error, results){
+        return new Promise(function(resolve, reject){
 
             let connection = RegistrationDB.connect();
 
@@ -171,6 +171,26 @@ class RegistrationDB{
         connection.end();
     });
 
+    }
+
+    static getRegistrationByEmail(email){
+        return new Promise (function(resolve, reject){
+            
+            let connection =RegistrationDB.connect(); 
+            
+            let sql = "select client_name, email, user_password from registration_client where email = '" + email +"'";
+
+            connection.query(sql, function(error, results, fields){
+                if(error){
+                    reject(error);
+                }
+                else{
+                    resolve(error);
+                }
+            });
+
+            connection.end();
+        });
     }
 
 }
